@@ -1,7 +1,7 @@
 'use strict';
 
-const ALEXA_APP_ID = 'amzn1.ask.skill.app.your-skill-id';
-const APIAI_PROJECT_ID = 'your-apiai-gcp-project-id';
+const ALEXA_APP_ID = process.env.ALEXA_APP_ID || 'amzn1.ask.skill.app.your-skill-id';
+const APIAI_PROJECT_ID = process.env.APIAP_PROJECT_ID || 'your-apiai-gcp-project-id';
 
 const AlexaSdk = require('alexa-sdk');
 const DialogflowSdk = require('dialogflow');
