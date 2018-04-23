@@ -1,9 +1,12 @@
 {
   "name": "alexa-dialogflow-bridge",
-  "version": "2.0",
+  "version": "2.0.0",
   "description": "Bridge to connect Amazon Alexa to Dialogflow (aka. Api.ai) using an AWS Lambda Function",
   "author": "Gnzlt",
   "main": "index.js",
+  "scripts": {
+    "postinstall": "npm rebuild grpc --target=6.1.0 --target_arch=x64 --target_platform=linux --target_libc=glibc"
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/Gnzlt/AlexaDialogflowBridge.git"

@@ -1,7 +1,7 @@
 'use strict';
 
 const ALEXA_APP_ID = process.env.ALEXA_APP_ID || 'amzn1.ask.skill.app.your-skill-id';
-const APIAI_PROJECT_ID = process.env.APIAP_PROJECT_ID || 'your-apiai-gcp-project-id';
+const GOOGLE_PROJECT_ID = process.env.GOOGLE_PROJECT_ID || 'your-apiai-gcp-project-id';
 
 const AlexaSdk = require('alexa-sdk');
 const DialogflowSdk = require('dialogflow');
@@ -17,26 +17,29 @@ exports.handler = function (event, context) {
   alexa.execute();
 };
 
+const languageCode = 'en-US';
+
 let handlers = {
   'LaunchRequest': function () {
     let self = this;
     setAlexaSessionId(self.event.session.sessionId);
-    let sessionPath = sessionClient.sessionPath(APIAI_PROJECT_ID, alexaSessionId);
+    let sessionPath = sessionClient.sessionPath(GOOGLE_PROJECT_ID, alexaSessionId);
 
     const request = {
       session: sessionPath,
       queryInput: {
         event: {
-          name: 'WELCOME'
-        },
-      },
+          name: 'WELCOME',
+          languageCode: languageCode
+        }
+      }
     };
 
     sessionClient
       .detectIntent(request)
       .then(responses => {
         logQueryResult(sessionClient, responses[0].queryResult);
-        const speech = responses[0].queryResult.fulfillment.text;
+        const speech = responses[0].queryResult.fulfillmentText;
         self.emit(':ask', speech, speech);
       })
       .catch(err => {
@@ -49,23 +52,23 @@ let handlers = {
     var text = self.event.request.intent.slots.Text.value;
     setAlexaSessionId(self.event.session.sessionId);
     if (text) {
-      let sessionPath = sessionClient.sessionPath(APIAI_PROJECT_ID, alexaSessionId);
+      let sessionPath = sessionClient.sessionPath(GOOGLE_PROJECT_ID, alexaSessionId);
 
       const request = {
         session: sessionPath,
         queryInput: {
           text: {
             text: text,
-            languageCode: languageCode,
-          },
-        },
+            languageCode: languageCode
+          }
+        }
       };
   
       sessionClient
         .detectIntent(request)
         .then(responses => {
           logQueryResult(sessionClient, responses[0].queryResult);
-          const speech = responses[0].queryResult.fulfillment.text;
+          const speech = responses[0].queryResult.fulfillmentText;
           if (isResponseIncompleted(responses[0])) {
             self.emit(':ask', speech, speech);
           } else {
@@ -86,22 +89,23 @@ let handlers = {
   'AMAZON.HelpIntent': function () {
     var self = this;
     setAlexaSessionId(self.event.session.sessionId);
-    let sessionPath = sessionClient.sessionPath(APIAI_PROJECT_ID, alexaSessionId);
+    let sessionPath = sessionClient.sessionPath(GOOGLE_PROJECT_ID, alexaSessionId);
 
     const request = {
       session: sessionPath,
       queryInput: {
         event: {
-          name: 'HELP'
-        },
-      },
+          name: 'HELP',
+          languageCode: languageCode
+        }
+      }
     };
 
     sessionClient
       .detectIntent(request)
       .then(responses => {
         logQueryResult(sessionClient, responses[0].queryResult);
-        const speech = responses[0].queryResult.fulfillment.text;
+        const speech = responses[0].queryResult.fulfillmentText;
         self.emit(':ask', speech, speech);
       })
       .catch(err => {
@@ -112,22 +116,23 @@ let handlers = {
   'AMAZON.StopIntent': function () {
     var self = this;
     setAlexaSessionId(self.event.session.sessionId);
-    let sessionPath = sessionClient.sessionPath(APIAI_PROJECT_ID, alexaSessionId);
+    let sessionPath = sessionClient.sessionPath(GOOGLE_PROJECT_ID, alexaSessionId);
 
     const request = {
       session: sessionPath,
       queryInput: {
         event: {
-          name: 'BYE'
-        },
-      },
+          name: 'BYE',
+          languageCode: languageCode
+        }
+      }
     };
 
     sessionClient
       .detectIntent(request)
       .then(responses => {
         logQueryResult(sessionClient, responses[0].queryResult);
-        const speech = responses[0].queryResult.fulfillment.text;
+        const speech = responses[0].queryResult.fulfillmentText;
         self.emit(':tell', speech, speech);
       })
       .catch(err => {
@@ -138,22 +143,23 @@ let handlers = {
   'Unhandled': function () {
     var self = this;
     setAlexaSessionId(self.event.session.sessionId);
-    let sessionPath = sessionClient.sessionPath(APIAI_PROJECT_ID, alexaSessionId);
+    let sessionPath = sessionClient.sessionPath(GOOGLE_PROJECT_ID, alexaSessionId);
 
     const request = {
       session: sessionPath,
       queryInput: {
         event: {
-          name: 'FALLBACK'
-        },
-      },
+          name: 'FALLBACK',
+          languageCode: languageCode
+        }
+      }
     };
 
     sessionClient
       .detectIntent(request)
       .then(responses => {
         logQueryResult(sessionClient, responses[0].queryResult);
-        const speech = responses[0].queryResult.fulfillment.text;
+        const speech = responses[0].queryResult.fulfillmentText;
         self.emit(':ask', speech, speech);
       })
       .catch(err => {
