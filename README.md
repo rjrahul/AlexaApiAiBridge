@@ -1,5 +1,5 @@
 # AlexaDialogflowBridge
-Bridge to connect Amazon Alexa to Dialogflow *(aka. Api.ai)* using an AWS Lambda Function.
+Bridge to connect Amazon Alexa to Dialogflow *(aka. Api.ai)* using an AWS Lambda Function. This version uses v2 API of dialogflow
 
 ## Steps
 ### 1. Create a new Alexa Skill
@@ -85,6 +85,26 @@ Bridge to connect Amazon Alexa to Dialogflow *(aka. Api.ai)* using an AWS Lambda
 * Select the gear icon (upper-left corner) and go to **Settings**.
 * Copy your **Developer access token** to use it later in the [Final Configuration section](#final-configuration).
 
+#### Dialogflow and GCP settings
+1.  Select or create a Cloud Platform project.
+
+    [Go to the projects page][projects]
+
+1.  Enable billing for your project.
+
+    [Enable billing][billing]
+
+1.  Enable the Dialogflow API.
+
+    [Enable the API][enable_api]
+
+1.  [Set up authentication with a service account][auth] so you can access the
+    API from your local workstation and AWS. Download your authentication json file and save as `gcp-credentials.json`. This file is to be added to code before uploading to AWS Lambda.
+
+[projects]: https://console.cloud.google.com/project
+[billing]: https://support.google.com/cloud/answer/6293499#enable-billing
+[enable_api]: https://console.cloud.google.com/flows/enableapi?apiid=dialogflow.googleapis.com
+[auth]: https://cloud.google.com/docs/authentication/getting-started
 
 ### 3. Create an AWS Lambda Function
 #### AWS Account
@@ -104,6 +124,7 @@ Bridge to connect Amazon Alexa to Dialogflow *(aka. Api.ai)* using an AWS Lambda
 
 	##### Lambda function code
 	* [**Download the `AlexaDialogflowBridge.zip` file**](https://github.com/Gnzlt/AlexaDialogflowBridge/releases/latest) from the latest release of this repo.
+  * Add the `gcp-credentials.json` file for authentication in the zip file.
 	* Drop down the *Code entry type* menu and select **Upload a .ZIP file**.
 	* Click on the **Function package** upload button and choose the file you just downloaded.
 	
@@ -120,13 +141,9 @@ Bridge to connect Amazon Alexa to Dialogflow *(aka. Api.ai)* using an AWS Lambda
 
 ### Final Configuration
 * Copy the Lambda **ARN** (upper-right corner) and use in the [Alexa Skill Configuration section](#skill-configuration).
-* Go to your Lambda **Code** tab.
-* Replace `ALEXA_APP_ID` with your **Alexa App Id** and `DIALOGFLOW_DEVELOPER_ACCESS_TOKEN` with your **Dialogflow Developer Access Token**:
-
-	```
-	const ALEXA_APP_ID = 'amzn1.ask.skill.app.your-skill-id';
-	const DIALOGFLOW_DEVELOPER_ACCESS_TOKEN = 'your-dialogflow-developer-access-token';
-	```
+* Go to your Lambda function tab.
+* Add environment variable `ALEXA_APP_ID` with your **Alexa App Id** and `GOOGLE_PROJECT_ID` with your Project Id. You can find Google project id @ //https://dialogflow.com/docs/agents#settings
+* Add environment variable as `GOOGLE_APPLICATION_CREDENTIALS` with value as `gcp-credentials.json`
 * Go to [Alexa Manager](http://alexa.amazon.com/spa/index.html#settings) and change the language of your device to **English (United States)** inside the Settings menu.
 
 
