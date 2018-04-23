@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "alexa-sdk": "^1.0.25",
-    "apiai": "^4.0.2"
+    "apiai": "^4.0.2",
+    "dialogflow": "^0.3.0"
   }
 }
