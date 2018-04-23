@@ -1,5 +1,5 @@
 # AlexaDialogflowBridge
-Bridge to connect Amazon Alexa to Dialogflow *(aka. Api.ai)* using an AWS Lambda Function. This version uses v2 API of dialogflow 
+Bridge to connect Amazon Alexa to Dialogflow *(aka. Api.ai)* using an AWS Lambda Function. This version uses v2 API of dialogflow
 
 ## Steps
 ### 1. Create a new Alexa Skill
