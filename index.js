@@ -5,7 +5,7 @@ const APIAI_PROJECT_ID = process.env.APIAP_PROJECT_ID || 'your-apiai-gcp-project
 
 const AlexaSdk = require('alexa-sdk');
 const DialogflowSdk = require('dialogflow');
-const sessionClient = DialogflowSdk.SessionsClient();
+const sessionClient = new DialogflowSdk.SessionsClient();
 const structjson = require('./structjson.js');
 
 let alexaSessionId;
