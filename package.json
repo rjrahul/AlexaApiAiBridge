@@ -1,6 +1,6 @@
 {
   "name": "alexa-dialogflow-bridge",
-  "version": "1.2",
+  "version": "2.0",
   "description": "Bridge to connect Amazon Alexa to Dialogflow (aka. Api.ai) using an AWS Lambda Function",
   "author": "Gnzlt",
   "main": "index.js",
